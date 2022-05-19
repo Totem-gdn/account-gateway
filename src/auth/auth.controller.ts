@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { GoogleGuard } from './guards/google.guard';
 import { TwitterGuard } from './guards/twitter.guard';
 import { FacebookGuard } from './guards/facebook.guard';
+import { Profile } from '../keys/interfaces/keys.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -21,14 +22,7 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
-    // const user = await this.grpcClient.findOneOrCreate(req.user);
-    const user = req.user;
-    const accessToken = await this.authService.createToken(user);
-
-    return {
-      user,
-      accessToken,
-    };
+    return await this.authService.findOneOrCreate(req.user as Profile);
   }
 
   @Get('twitter')
@@ -44,14 +38,7 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
-    // const user = await this.grpcClient.findOneOrCreate(req.user);
-    const user = req.user;
-    const accessToken = await this.authService.createToken(user);
-
-    return {
-      user,
-      accessToken,
-    };
+    return await this.authService.findOneOrCreate(req.user as Profile);
   }
 
   @Get('facebook')
@@ -67,13 +54,6 @@ export class AuthController {
       throw new UnauthorizedException();
     }
 
-    // const user = await this.grpcClient.findOneOrCreate(req.user);
-    const user = req.user;
-    const accessToken = await this.authService.createToken(user);
-
-    return {
-      user,
-      accessToken,
-    };
+    return await this.authService.findOneOrCreate(req.user as Profile);
   }
 }

@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { TwitterStrategy } from './strategies/twitter.strategy';
 import { FacebookStrategy } from './strategies/facebook.strategy';
+import { KeysModule } from '../keys/keys.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FacebookStrategy } from './strategies/facebook.strategy';
       }),
       inject: [ConfigService],
     }),
+    KeysModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, GoogleStrategy, TwitterStrategy, FacebookStrategy],

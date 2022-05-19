@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package keys;
+
+service KeysStorageService {
+  rpc FindOneOrCreate (Profile) returns (User);
+  rpc GetPublicKey (User) returns (PublicKey);
+}
+
+message Profile {
+  string provider = 1;
+  string id = 2;
+  string username = 3;
+}
+
+message User {
+  string id = 1;
+}
+
+message PublicKey {
+  string publicKey = 1;
+}

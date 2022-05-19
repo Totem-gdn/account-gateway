@@ -10,6 +10,6 @@ export class UserController {
   @Get()
   @UseGuards(JwtGuard)
   async me(@CurrentUser() user) {
-    return this.userService.profile(user);
+    return await this.userService.getPublicKey(user);
   }
 }
