@@ -2,20 +2,21 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from './configuration/app/app.config';
 import secretsConfig from './configuration/secrets/secrets.config';
+import keyServiceConfig from './configuration/key-service/key-service.config';
 import googleConfig from './configuration/google/google.config';
 import twitterConfig from './configuration/twitter/twitter.config';
 import facebookConfig from './configuration/facebook/facebook.config';
-import keyServiceConfig from './configuration/keyService/key-service.config';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       cache: true,
-      expandVariables: true,
       load: [appConfig, secretsConfig, keyServiceConfig, googleConfig, twitterConfig, facebookConfig],
     }),
+    AuthModule,
+    UserModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
