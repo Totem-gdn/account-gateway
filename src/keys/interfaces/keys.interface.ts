@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
 export interface Profile {
-  provider: string;
   id: string;
+  provider: string;
   username: string;
 }
 

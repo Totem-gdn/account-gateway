@@ -8,6 +8,8 @@ import { SECRETS_NAMESPACE, ISecretsConfig } from './configuration/secrets/secre
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+  const { port } = configService.get<IAppConfig>(APP_NAMESPACE);
+
   app.enableCors({ origin: true });
   app.use(
     session({
@@ -17,7 +19,8 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
-  await app.listen(configService.get<IAppConfig>(APP_NAMESPACE).port);
+
+  await app.listen(port);
 }
 
 void bootstrap();
