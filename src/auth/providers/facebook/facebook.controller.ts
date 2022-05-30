@@ -1,6 +1,5 @@
 import { Controller, Get, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { FacebookGuard } from './guards/facebook.guard';
-import { Profile } from '../../../keys/interfaces/keys.interface';
 import { JwtAuthService } from '../jwt-auth/jwt-auth.service';
 
 @Controller('auth/facebook')
@@ -19,6 +18,6 @@ export class FacebookController {
     if (!req.user) {
       throw new UnauthorizedException();
     }
-    return await this.jwtAuthService.findOneOrCreate(req.user as Profile);
+    return await this.jwtAuthService.findOneOrCreate(req.user);
   }
 }

@@ -1,6 +1,6 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
-    KEYS_SERVICE_HOST: string;
-    KEYS_SERVICE_PORT: string;
+    KEYSTORE_HOST: string;
+    KEYSTORE_PORT: string;
   }
 }

@@ -1,6 +1,5 @@
 import { Controller, Get, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { TwitterGuard } from './guards/twitter.guard';
-import { Profile } from '../../../keys/interfaces/keys.interface';
 import { JwtAuthService } from '../jwt-auth/jwt-auth.service';
 
 @Controller('auth/twitter')
@@ -19,6 +18,6 @@ export class TwitterController {
     if (!req.user) {
       throw new UnauthorizedException();
     }
-    return await this.jwtAuthService.findOneOrCreate(req.user as Profile);
+    return await this.jwtAuthService.findOneOrCreate(req.user);
   }
 }

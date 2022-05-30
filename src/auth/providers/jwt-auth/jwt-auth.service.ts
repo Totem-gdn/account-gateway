@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { KeysService } from '../../../keys/keys.service';
+import { KeystoreService } from '../../../keystore/keystore.service';
 import { JwtService } from '@nestjs/jwt';
-import { Profile } from '../../../keys/interfaces/keys.interface';
+import { FindOrCreateRequest } from '../../../keystore/interfaces/keystore-service.interface';
 import { IJwtPayload } from './interfaces/jwt.payload.interface';
 
 @Injectable()
 export class JwtAuthService {
-  constructor(private readonly keysService: KeysService, private readonly jwtService: JwtService) {}
+  constructor(private readonly keystoreService: KeystoreService, private readonly jwtService: JwtService) {}
 
-  async findOneOrCreate(user: Profile) {
-    const { id } = await this.keysService.findOneOrCreate(user);
-    const profile: Profile = {
+  async findOneOrCreate(user: FindOrCreateRequest) {
+    const { id } = await this.keystoreService.findOneOrCreate(user);
+    const profile: FindOrCreateRequest = {
       id,
       provider: user.provider,
       username: user.username,
@@ -19,7 +19,7 @@ export class JwtAuthService {
     return { profile, accessToken };
   }
 
-  private async createToken(profile: Profile): Promise<string> {
+  private async createToken(profile: FindOrCreateRequest): Promise<string> {
     const jwtPayload: IJwtPayload = {
       sub: profile.id,
       provider: profile.provider,

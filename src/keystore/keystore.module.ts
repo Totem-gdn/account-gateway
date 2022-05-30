@@ -1,31 +1,31 @@
 import { Module } from '@nestjs/common';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { IKeysServiceConfig, KEYS_SERVICE_NAMESPACE } from '../configuration/keys-service/keys-service.config';
+import { IKeystoreServiceConfig, KEYSTORE_SERVICE_NAMESPACE } from '../configuration/keystore/keystore.config';
 import { join } from 'path';
-import { KeysService } from './keys.service';
+import { KeystoreService } from './keystore.service';
 
 @Module({
   imports: [ConfigModule],
   providers: [
     {
-      provide: 'KEYS_PACKAGE',
+      provide: 'USERS_PACKAGE',
       useFactory: (configService: ConfigService) => {
-        const { grpc } = configService.get<IKeysServiceConfig>(KEYS_SERVICE_NAMESPACE);
+        const { grpc } = configService.get<IKeystoreServiceConfig>(KEYSTORE_SERVICE_NAMESPACE);
 
         return ClientProxyFactory.create({
           transport: Transport.GRPC,
           options: {
             url: `${grpc.host}:${grpc.port}`,
-            package: 'keys',
-            protoPath: join(__dirname, 'proto', 'keys.proto'),
+            package: 'users',
+            protoPath: join(__dirname, 'proto', 'users.proto'),
           },
         });
       },
       inject: [ConfigService],
     },
-    KeysService,
+    KeystoreService,
   ],
-  exports: [KeysService],
+  exports: [KeystoreService],
 })
-export class KeysModule {}
+export class KeystoreModule {}

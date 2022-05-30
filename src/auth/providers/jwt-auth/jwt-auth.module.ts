@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ISecretsConfig, SECRETS_NAMESPACE } from '../../../configuration/secrets/secrets.config';
-import { KeysModule } from '../../../keys/keys.module';
+import { KeystoreModule } from '../../../keystore/keystore.module';
 import { JwtAuthService } from './jwt-auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
@@ -21,7 +21,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       }),
       inject: [ConfigService],
     }),
-    KeysModule,
+    KeystoreModule,
   ],
   providers: [JwtAuthService, JwtStrategy],
   exports: [JwtAuthService],

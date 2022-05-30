@@ -28,8 +28,8 @@ spec:
           env:
             - name: PORT
             - name: BASE_URL
-            - name: KEYS_SERVICE_HOST
-            - name: KEYS_SERVICE_PORT
+            - name: KEYSTORE_HOST
+            - name: KEYSTORE_PORT
             - name: SESSION_SECRET
             - name: JWT_SECRET
             - name: GOOGLE_CLIENT_ID

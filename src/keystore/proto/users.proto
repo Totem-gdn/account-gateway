@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package users;
+
+message FindOrCreateRequest {
+  string id = 1;
+  string provider = 2;
+  string username = 3;
+}
+
+message FindOrCreateResponse {
+  string id = 1;
+}
+
+message PublicKeyRequest {
+  string id = 1;
+}
+
+message PublicKeyResponse {
+  string public_key = 1;
+}
+
+service Users {
+  rpc FindOrCreate (FindOrCreateRequest) returns (FindOrCreateResponse);
+  rpc GetPublicKey (PublicKeyRequest) returns (PublicKeyResponse);
+}
