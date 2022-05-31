@@ -3,12 +3,12 @@ import { isProviderEnabled } from '../configuration/providers/providers.config';
 import { FacebookModule } from './providers/facebook/facebook.module';
 import { GoogleModule } from './providers/google/google.module';
 import { TwitterModule } from './providers/twitter/twitter.module';
+import { JwtAuthModule } from './providers/jwt-auth/jwt-auth.module';
 
 @Module({})
 export class AuthModule {
   static register(): DynamicModule {
-    // TODO: implement it with RouterModule
-    const providers = [];
+    const providers = [JwtAuthModule];
     if (isProviderEnabled('google')) {
       providers.push(GoogleModule);
     }
