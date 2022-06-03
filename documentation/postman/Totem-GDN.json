@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "3ae5ea36-cca3-4e48-a7e1-a5baff890a2a",
+		"name": "Totem-GDN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account-Gateway",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Google",
+							"item": [
+								{
+									"name": "Auth",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/google",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"google"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Redirect",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/google/redirect",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"google",
+												"redirect"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200 OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{account_gateway_url}}/auth/google/redirect",
+													"host": [
+														"{{account_gateway_url}}"
+													],
+													"path": [
+														"auth",
+														"google",
+														"redirect"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": null,
+											"cookie": [],
+											"body": "{\n    \"profile\": {\n        \"id\": \"string\",\n        \"provider\": \"google\",\n        \"username\": \"string\"\n    },\n    \"accessToken\": \"jwt.access.token\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Twitter",
+							"item": [
+								{
+									"name": "Auth",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/twitter",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"twitter"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Redirect",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/twitter/redirect",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"twitter",
+												"redirect"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200 OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{account_gateway_url}}/auth/twitter/redirect",
+													"host": [
+														"{{account_gateway_url}}"
+													],
+													"path": [
+														"auth",
+														"twitter",
+														"redirect"
+													]
+												}
+											},
+											"_postman_previewlanguage": "json",
+											"header": [],
+											"cookie": [],
+											"body": "{\n    \"profile\": {\n        \"id\": \"string\",\n        \"provider\": \"twitter\",\n        \"username\": \"string\"\n    },\n    \"accessToken\": \"jwt.access.token\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Facebook",
+							"item": [
+								{
+									"name": "Auth",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/facebook",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"facebook"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Redirect",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{account_gateway_url}}/auth/facebook/redirect",
+											"host": [
+												"{{account_gateway_url}}"
+											],
+											"path": [
+												"auth",
+												"facebook",
+												"redirect"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200 OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{account_gateway_url}}/auth/facebook/redirect",
+													"host": [
+														"{{account_gateway_url}}"
+													],
+													"path": [
+														"auth",
+														"facebook",
+														"redirect"
+													]
+												}
+											},
+											"_postman_previewlanguage": "json",
+											"header": [],
+											"cookie": [],
+											"body": "{\n    \"profile\": {\n        \"id\": \"string\",\n        \"provider\": \"facebook\",\n        \"username\": \"string\"\n    },\n    \"accessToken\": \"jwt.access.token\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{account_gateway_url}}/me",
+							"host": [
+								"{{account_gateway_url}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{account_gateway_url}}/me",
+									"host": [
+										"{{account_gateway_url}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"publicKey\": \"string\"\n}"
+						},
+						{
+							"name": "401 Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{account_gateway_url}}/me",
+									"host": [
+										"{{account_gateway_url}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"message\": \"Unauthorized\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Simple API",
+			"item": [
+				{
+					"name": "Avatars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{simple_api_url}}/default/avatars/{{public_key}}",
+							"host": [
+								"{{simple_api_url}}"
+							],
+							"path": [
+								"default",
+								"avatars",
+								"{{public_key}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{simple_api_url}}/default/avatars/{{public_key}}",
+									"host": [
+										"{{simple_api_url}}"
+									],
+									"path": [
+										"default",
+										"avatars",
+										"{{public_key}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"_id\": \"string\",\n            \"owner\": \"string\",\n            \"owners\": [\n                \"string\"\n            ],\n            \"avatar\": {\n                \"sex\": 0, \n                \"skinColor\": \"#hex\", \n                \"hairColor\": \"#hex\", \n                \"hairStyle\": 0, \n                \"eyeColor\": \"#hex\", \n                \"bodyFat\": 0, \n                \"bodyMuscles\": 0\n            },\n            \"createdAt\": \"date\",\n            \"updatedAt\": \"date\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{simple_api_url}}/default/items/{{public_key}}",
+							"host": [
+								"{{simple_api_url}}"
+							],
+							"path": [
+								"default",
+								"items",
+								"{{public_key}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{simple_api_url}}/default/items/{{public_key}}",
+									"host": [
+										"{{simple_api_url}}"
+									],
+									"path": [
+										"default",
+										"items",
+										"{{public_key}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"OK\",\n    \"data\": [\n        {\n            \"_id\": \"string\",\n            \"owner\": \"string\",\n            \"owners\": [\n                \"string\"\n            ],\n            \"itemType\": \"string\",\n            \"item\": {\n                \"tipMaterial\": 0, \n                \"element\": 0, \n                \"shaftColor\": \"#hex\", \n                \"range\": 0.00, \n                \"damage\": 0.00\n            },\n            \"createdAt\": \"date\",\n            \"updatedAt\": \"date\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "account_gateway_url",
+			"value": "https://account.totem.gdn",
+			"type": "string"
+		},
+		{
+			"key": "simple_api_url",
+			"value": "https://simple-api.totem.gdn",
+			"type": "string"
+		},
+		{
+			"key": "public_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jwt_access_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
