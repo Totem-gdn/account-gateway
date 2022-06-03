@@ -30,8 +30,10 @@ spec:
             - name: BASE_URL
             - name: KEYSTORE_HOST
             - name: KEYSTORE_PORT
+            - name: REDIS_STORAGE_URI
             - name: SESSION_SECRET
             - name: JWT_SECRET
+            - name: AUTH_PROVIDERS
             - name: GOOGLE_CLIENT_ID
             - name: GOOGLE_CLIENT_SECRET
             - name: TWITTER_CONSUMER_KEY
