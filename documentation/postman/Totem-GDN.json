@@ -291,7 +291,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{simple_api_url}}/default/avatars/{{public_key}}",
+							"raw": "{{simple_api_url}}/avatars/{{public_key}}",
 							"host": [
 								"{{simple_api_url}}"
 							],
@@ -309,7 +309,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{simple_api_url}}/default/avatars/{{public_key}}",
+									"raw": "{{simple_api_url}}/avatars/{{public_key}}",
 									"host": [
 										"{{simple_api_url}}"
 									],
@@ -335,7 +335,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{simple_api_url}}/default/items/{{public_key}}",
+							"raw": "{{simple_api_url}}/items/{{public_key}}",
 							"host": [
 								"{{simple_api_url}}"
 							],
@@ -353,7 +353,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{simple_api_url}}/default/items/{{public_key}}",
+									"raw": "{{simple_api_url}}/items/{{public_key}}",
 									"host": [
 										"{{simple_api_url}}"
 									],
