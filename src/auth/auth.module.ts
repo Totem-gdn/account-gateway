@@ -21,7 +21,6 @@ export class AuthModule {
     return {
       module: AuthModule,
       imports: providers,
-      exports: providers,
     };
   }
 }

@@ -6,7 +6,7 @@ import * as session from 'express-session';
 import { createClient } from 'redis';
 import * as connectRedis from 'connect-redis';
 import { APP_NAMESPACE, IAppConfig } from './configuration/app/app.config';
-import { SECRETS_NAMESPACE, ISecretsConfig, useRedisStorage } from './configuration/secrets/secrets.config';
+import { ISecretsConfig, SECRETS_NAMESPACE, useRedisStorage } from './configuration/secrets/secrets.config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);

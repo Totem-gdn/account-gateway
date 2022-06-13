@@ -3,11 +3,11 @@ FROM node:lts-alpine AS builder
 
 WORKDIR /usr/src/account-gateway
 
-COPY package.json ./
-
 RUN npm i glob rimraf
 
-RUN npm i --only=development
+COPY package.json package-lock.json ./
+
+RUN npm ci
 
 COPY . .
 
@@ -21,9 +21,9 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/account-gateway
 
-COPY package.json .
+COPY package.json package-lock.json ./
 
-RUN npm i --only=production
+RUN npm ci --only=production
 
 COPY --from=builder /usr/src/account-gateway/dist ./dist
 
