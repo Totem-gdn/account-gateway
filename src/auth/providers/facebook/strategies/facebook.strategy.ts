@@ -15,7 +15,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
       clientID: authProvidersConfig.facebook.AppID,
       clientSecret: authProvidersConfig.facebook.AppSecret,
       callbackURL: `${appCfg.baseUrl}/auth/facebook/redirect`,
-      profileFields: ['id', 'displayName', 'emails'],
+      profileFields: ['id', 'displayName', 'email'],
       scope: ['email'],
     });
   }

@@ -8,10 +8,6 @@ export interface ISecretsConfig {
   jwtSecret: string;
 }
 
-export function useRedisStorage() {
-  return !!process.env.REDIS_STORAGE_URI;
-}
-
 export default registerAs(
   SECRETS_NAMESPACE,
   (): ISecretsConfig => ({

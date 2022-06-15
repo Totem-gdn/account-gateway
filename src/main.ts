@@ -1,40 +1,53 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import { createClient } from 'redis';
 import * as connectRedis from 'connect-redis';
 import { APP_NAMESPACE, IAppConfig } from './configuration/app/app.config';
-import { ISecretsConfig, SECRETS_NAMESPACE, useRedisStorage } from './configuration/secrets/secrets.config';
+import { ISecretsConfig, SECRETS_NAMESPACE } from './configuration/secrets/secrets.config';
 
-async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const configService = app.get(ConfigService);
-  const { env, port } = configService.get<IAppConfig>(APP_NAMESPACE);
+async function getSessionConfig(configService: ConfigService<unknown, boolean>): Promise<session.SessionOptions> {
+  const { env } = configService.get<IAppConfig>(APP_NAMESPACE);
   const { sessionSecret } = configService.get<ISecretsConfig>(SECRETS_NAMESPACE);
+  const { redisStorageURI } = configService.get<ISecretsConfig>(SECRETS_NAMESPACE);
+
   const sessionConfig: session.SessionOptions = {
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
+      secure: env === 'production',
+      sameSite: 'lax',
     },
   };
-  if (env === 'production') {
-    app.set('trust proxy', 1);
-    sessionConfig.cookie.secure = true;
-  }
-  if (useRedisStorage()) {
+
+  if (!!redisStorageURI) {
+    Logger.log(`Session Storage: Redis (${redisStorageURI})`);
     const RedisStore = connectRedis(session);
-    const { redisStorageURI } = configService.get<ISecretsConfig>(SECRETS_NAMESPACE);
     const redisClient = createClient({ url: redisStorageURI, legacyMode: true });
     await redisClient.connect();
     sessionConfig.store = new RedisStore({ client: redisClient });
   }
+
+  return sessionConfig;
+}
+
+async function bootstrap() {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const configService = app.get(ConfigService);
+  const { port } = configService.get<IAppConfig>(APP_NAMESPACE);
+  const { sessionSecret } = configService.get<ISecretsConfig>(SECRETS_NAMESPACE);
+
   app.disable('x-powered-by');
+  app.set('trust proxy', 1);
   app.enableCors({ origin: true });
-  app.use(session(sessionConfig));
+  app.use(cookieParser(sessionSecret));
+  app.use(session(await getSessionConfig(configService)));
 
   await app.listen(port);
 }
