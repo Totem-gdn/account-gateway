@@ -23,7 +23,7 @@ WORKDIR /usr/src/account-gateway
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 COPY --from=builder /usr/src/account-gateway/dist ./dist
 
