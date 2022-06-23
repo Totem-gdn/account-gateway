@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
-import { Strategy, Profile } from 'passport-facebook';
+import { Request } from 'express';
+import { Profile } from 'passport';
+import { Strategy } from 'passport-facebook';
 import { APP_NAMESPACE, IAppConfig } from '../../../../configuration/app/app.config';
 import { AUTH_PROVIDERS_NAMESPACE, IAuthProvidersConfig } from '../../../../configuration/providers/providers.config';
+import { IUserProfile } from '../../interfaces/user-profile.interface';
 
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
@@ -17,15 +20,23 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
       callbackURL: `${appCfg.baseUrl}/auth/facebook/redirect`,
       profileFields: ['id', 'displayName', 'email'],
       scope: ['email'],
+      passReqToCallback: true,
     });
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: Profile, done): Promise<any> {
-    const user = {
+  async validate(req: Request, accessToken: string, refreshToken: string, profile: Profile) {
+    if (!profile) {
+      return null;
+    }
+    const user: IUserProfile = {
       id: profile.id,
       provider: profile.provider,
-      username: profile.emails[0]?.value,
+      username: profile.emails?.[0]?.value || profile.username,
     };
-    done(null, user);
+    if (!!req.query?.state) {
+      const state = Buffer.from(req.query.state as string, 'base64url').toString('utf8');
+      user.state = JSON.parse(state);
+    }
+    return user;
   }
 }

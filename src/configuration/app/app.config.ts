@@ -6,6 +6,7 @@ export interface IAppConfig {
   env: string;
   port: number | null;
   baseUrl: string;
+  redisStorageURI: string;
 }
 
 export default registerAs(
@@ -14,5 +15,6 @@ export default registerAs(
     env: process.env.NODE_ENV || 'development',
     port: parseInt(process.env.PORT, 10) || null,
     baseUrl: process.env.BASE_URL,
+    redisStorageURI: process.env.REDIS_STORAGE_URI,
   }),
 );
