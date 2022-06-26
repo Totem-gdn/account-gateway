@@ -3,6 +3,7 @@ import { isProviderEnabled } from '../configuration/providers/providers.config';
 import { FacebookModule } from './providers/facebook/facebook.module';
 import { GoogleModule } from './providers/google/google.module';
 import { TwitterModule } from './providers/twitter/twitter.module';
+import { SteamModule } from './providers/steam/steam.module';
 import { JwtAuthModule } from './providers/jwt-auth/jwt-auth.module';
 
 @Module({})
@@ -17,6 +18,9 @@ export class AuthModule {
     }
     if (isProviderEnabled('twitter')) {
       providers.push(TwitterModule);
+    }
+    if (isProviderEnabled('steam')) {
+      providers.push(SteamModule);
     }
     return {
       module: AuthModule,

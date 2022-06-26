@@ -7,5 +7,6 @@ declare namespace NodeJS {
     FACEBOOK_APP_SECRET: string;
     TWITTER_CONSUMER_KEY: string;
     TWITTER_CONSUMER_SECRET: string;
+    STEAM_API_KEY: string;
   }
 }

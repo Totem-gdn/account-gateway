@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 export const AUTH_PROVIDERS_NAMESPACE = 'auth-providers';
 
-export const AuthProviders = ['google', 'facebook', 'twitter'] as const;
+export const AuthProviders = ['google', 'facebook', 'twitter', 'steam'] as const;
 
 export type AuthProvider = typeof AuthProviders[number];
 
@@ -19,6 +19,9 @@ export interface IAuthProvidersConfig {
   twitter: {
     consumerKey: string;
     consumerSecret: string;
+  };
+  steam: {
+    apiKey: string;
   };
 }
 
@@ -44,6 +47,9 @@ export default registerAs(
     twitter: {
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+    },
+    steam: {
+      apiKey: process.env.STEAM_API_KEY,
     },
   }),
 );
