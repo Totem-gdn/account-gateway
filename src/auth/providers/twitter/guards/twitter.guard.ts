@@ -6,10 +6,10 @@ import { Request } from 'express';
 export class TwitterGuard extends AuthGuard('twitter') {
   getAuthenticateOptions(context: ExecutionContext): IAuthModuleOptions {
     const options: IAuthModuleOptions = {};
-    const request = context.switchToHttp().getRequest<Request>();
+    const request = context.switchToHttp().getRequest<Request & { session: { state: any } }>();
     if (request.path === '/auth/twitter') {
       if (Object.keys(request.query).length > 0) {
-        options.state = Buffer.from(JSON.stringify(request.query), 'utf8').toString('base64url');
+        request.session.state = request.query;
       }
     }
     return options;

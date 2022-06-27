@@ -21,7 +21,7 @@ import { SESSION_STORE, SessionStoreModule } from './session-store.module';
     SessionStoreModule,
     HealthModule,
     KeystoreModule,
-    AuthModule.register(),
+    AuthModule.forRoot(),
     UsersModule,
   ],
 })

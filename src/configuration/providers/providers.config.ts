@@ -2,10 +2,6 @@ import { registerAs } from '@nestjs/config';
 
 export const AUTH_PROVIDERS_NAMESPACE = 'auth-providers';
 
-export const AuthProviders = ['google', 'facebook', 'twitter', 'steam'] as const;
-
-export type AuthProvider = typeof AuthProviders[number];
-
 export interface IAuthProvidersConfig {
   providers: string[];
   google: {
@@ -25,11 +21,8 @@ export interface IAuthProvidersConfig {
   };
 }
 
-// FIXME: right now we can't dynamically create proxy module
-// https://github.com/nestjs/nest/pull/9534
-export function isProviderEnabled(provider: AuthProvider): boolean {
-  const envProviders = process.env.AUTH_PROVIDERS?.split(',') || [];
-  return envProviders.includes(provider);
+export function authProviders(): string[] {
+  return process.env.AUTH_PROVIDERS?.split(',') || [];
 }
 
 export default registerAs(

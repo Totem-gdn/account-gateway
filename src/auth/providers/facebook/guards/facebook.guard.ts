@@ -9,7 +9,8 @@ export class FacebookGuard extends AuthGuard('facebook') {
     const request = context.switchToHttp().getRequest<Request>();
     if (request.path === '/auth/facebook') {
       if (Object.keys(request.query).length > 0) {
-        options.state = Buffer.from(JSON.stringify(request.query), 'utf8').toString('base64url');
+        const stateJson = JSON.stringify(request.query);
+        options.state = Buffer.from(stateJson, 'utf8').toString('base64url');
       }
     }
     return options;
