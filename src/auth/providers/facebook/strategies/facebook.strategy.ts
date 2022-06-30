@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
@@ -13,11 +14,13 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
   constructor(private readonly configService: ConfigService, private readonly keystoreService: KeystoreService) {
     const appCfg = configService.get<IAppConfig>(APP_NAMESPACE);
     const authProvidersConfig = configService.get<IAuthProvidersConfig>(AUTH_PROVIDERS_NAMESPACE);
+    const callbackURL = new URL(appCfg.baseUrl);
+    callbackURL.pathname = path.join(callbackURL.pathname, 'auth/facebook/redirect');
 
     super({
-      clientID: authProvidersConfig.facebook.AppID,
-      clientSecret: authProvidersConfig.facebook.AppSecret,
-      callbackURL: `${appCfg.baseUrl}/auth/facebook/redirect`,
+      clientID: authProvidersConfig.facebook.appID,
+      clientSecret: authProvidersConfig.facebook.appSecret,
+      callbackURL: callbackURL.toString(),
       profileFields: ['id', 'displayName', 'email'],
       scope: ['email'],
       passReqToCallback: true,

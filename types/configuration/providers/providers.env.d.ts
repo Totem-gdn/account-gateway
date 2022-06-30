@@ -8,5 +8,6 @@ declare namespace NodeJS {
     TWITTER_CONSUMER_KEY: string;
     TWITTER_CONSUMER_SECRET: string;
     STEAM_API_KEY: string;
+    ITCHIO_CLIENT_ID: string;
   }
 }

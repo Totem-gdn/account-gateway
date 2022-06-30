@@ -9,8 +9,8 @@ export interface IAuthProvidersConfig {
     clientSecret: string;
   };
   facebook: {
-    AppID: string;
-    AppSecret: string;
+    appID: string;
+    appSecret: string;
   };
   twitter: {
     consumerKey: string;
@@ -18,6 +18,9 @@ export interface IAuthProvidersConfig {
   };
   steam: {
     apiKey: string;
+  };
+  itchio: {
+    clientID: string;
   };
 }
 
@@ -34,8 +37,8 @@ export default registerAs(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
     facebook: {
-      AppID: process.env.FACEBOOK_APP_ID,
-      AppSecret: process.env.FACEBOOK_APP_SECRET,
+      appID: process.env.FACEBOOK_APP_ID,
+      appSecret: process.env.FACEBOOK_APP_SECRET,
     },
     twitter: {
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
@@ -43,6 +46,9 @@ export default registerAs(
     },
     steam: {
       apiKey: process.env.STEAM_API_KEY,
+    },
+    itchio: {
+      clientID: process.env.ITCHIO_CLIENT_ID,
     },
   }),
 );

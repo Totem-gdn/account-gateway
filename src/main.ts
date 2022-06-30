@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
@@ -12,6 +13,8 @@ async function bootstrap() {
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
   app.enableCors({ origin: true });
+  app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
 
   await app.listen(port);
 }

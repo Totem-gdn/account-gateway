@@ -7,7 +7,7 @@ import { JwtAuthService } from '../jwt-auth/jwt-auth.service';
 export class GoogleController {
   constructor(private readonly jwtAuthService: JwtAuthService) {}
 
-  @Get('')
+  @Get()
   @UseGuards(GoogleGuard)
   async googleAuth() {
     // Guard redirects

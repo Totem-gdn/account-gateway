@@ -6,7 +6,7 @@ import { JwtAuthService } from '../jwt-auth/jwt-auth.service';
 export class TwitterController {
   constructor(private readonly jwtAuthService: JwtAuthService) {}
 
-  @Get('')
+  @Get()
   @UseGuards(TwitterGuard)
   async twitterAuth() {
     // Guard redirects

@@ -7,7 +7,7 @@ import { JwtAuthService } from '../jwt-auth/jwt-auth.service';
 export class SteamController {
   constructor(private readonly jwtAuthService: JwtAuthService) {}
 
-  @Get('')
+  @Get()
   @UseGuards(SteamGuard)
   async steamAuth() {
     // Guard redirects

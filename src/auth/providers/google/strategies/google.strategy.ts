@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
@@ -12,11 +13,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private readonly configService: ConfigService, private readonly keystoreService: KeystoreService) {
     const appCfg = configService.get<IAppConfig>(APP_NAMESPACE);
     const authProvidersCfg = configService.get<IAuthProvidersConfig>(AUTH_PROVIDERS_NAMESPACE);
+    const callbackURL = new URL(appCfg.baseUrl);
+    callbackURL.pathname = path.join(callbackURL.pathname, 'auth/google/redirect');
 
     super({
       clientID: authProvidersCfg.google.clientID,
       clientSecret: authProvidersCfg.google.clientSecret,
-      callbackURL: `${appCfg.baseUrl}/auth/google/redirect`,
+      callbackURL: callbackURL.toString(),
       scope: ['email', 'profile'],
       passReqToCallback: true,
     });

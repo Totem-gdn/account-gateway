@@ -25,6 +25,8 @@ COPY package.json package-lock.json ./
 
 RUN npm ci --omit=dev
 
+COPY --from=builder /usr/src/account-gateway/views ./views
+
 COPY --from=builder /usr/src/account-gateway/dist ./dist
 
 CMD ["node", "dist/main"]

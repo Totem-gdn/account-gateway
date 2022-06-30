@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
@@ -13,9 +14,11 @@ export class SteamStrategy extends PassportStrategy(Strategy, 'steam') {
   constructor(private readonly configService: ConfigService, private readonly keystoreService: KeystoreService) {
     const appCfg = configService.get<IAppConfig>(APP_NAMESPACE);
     const authProviderCfg = configService.get<IAuthProvidersConfig>(AUTH_PROVIDERS_NAMESPACE);
+    const callbackURL = new URL(appCfg.baseUrl);
+    callbackURL.pathname = path.join(callbackURL.pathname, 'auth/steam/redirect');
 
     super({
-      returnURL: `${appCfg.baseUrl}/auth/steam/redirect`,
+      returnURL: callbackURL.toString(),
       realm: appCfg.baseUrl,
       apiKey: authProviderCfg.steam.apiKey,
       stateless: false,
