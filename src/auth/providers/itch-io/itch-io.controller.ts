@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Controller, Get, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpCode, Post, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { ItchioGuard } from './guards/itch-io.guard.service';
 import { ConfigService } from '@nestjs/config';
@@ -8,7 +8,12 @@ import { APP_NAMESPACE, IAppConfig } from '../../../configuration/app/app.config
 
 @Controller('auth/itch-io')
 export class ItchIoController {
-  constructor(private readonly jwtAuthService: JwtAuthService, private configService: ConfigService) {}
+  private readonly authURL: URL;
+
+  constructor(private readonly jwtAuthService: JwtAuthService, private configService: ConfigService) {
+    this.authURL = new URL(this.configService.get<IAppConfig>(APP_NAMESPACE).baseUrl);
+    this.authURL.pathname = path.join(this.authURL.pathname, 'auth/itch-io/redirect');
+  }
 
   @Get()
   @UseGuards(ItchioGuard)
@@ -16,17 +21,15 @@ export class ItchIoController {
     // Guard redirects
   }
 
-  @Get('callback')
-  @Render('auth/itch-io/callback')
+  @Get('redirect')
+  @Render('auth/itch-io/redirect')
   async itchioCallback() {
-    const appCfg = this.configService.get<IAppConfig>(APP_NAMESPACE);
-    const redirectURL = new URL(appCfg.baseUrl);
-    redirectURL.pathname = path.join(redirectURL.pathname, 'auth/itch-io/redirect');
-    return { redirectURL: redirectURL.toString() };
+    return { authURL: this.authURL.toString() };
   }
 
-  @Get('redirect')
+  @Post('redirect')
   @UseGuards(ItchioGuard)
+  @HttpCode(200)
   async itchioRedirect(@Req() req, @Res() res: Response) {
     if (!req.user?.profile) {
       throw new UnauthorizedException();

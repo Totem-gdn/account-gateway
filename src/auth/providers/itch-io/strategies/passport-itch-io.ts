@@ -42,7 +42,7 @@ export class PassportItchioStrategy extends Strategy {
 
     this.clientID = clientID;
     this.callbackURL = new URL(baseUrl);
-    this.callbackURL.pathname = path.join(this.callbackURL.pathname, 'auth/itch-io/callback');
+    this.callbackURL.pathname = path.join(this.callbackURL.pathname, 'auth/itch-io/redirect');
     this.authorizationURL = new URL('https://itch.io/user/oauth');
     this.authorizationURL.searchParams.append('client_id', this.clientID);
     this.authorizationURL.searchParams.append('scope', this.scope);
@@ -98,7 +98,7 @@ export class PassportItchioStrategy extends Strategy {
         });
     } else {
       const authUrl = new URL(this.authorizationURL);
-      if (options.state && typeof options.state === 'string') {
+      if (typeof options.state === 'string') {
         authUrl.searchParams.append('state', options.state);
       }
       return this.redirect(authUrl.toString());

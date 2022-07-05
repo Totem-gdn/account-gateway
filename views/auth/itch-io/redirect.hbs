@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>Totem GDN</title>
+</head>
+<script>
+  (function() {
+    debugger;
+    const url = new URL('{{authURL}}');
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    if (!hashParams.has('access_token')) {
+      url.searchParams.append('error', 'invalid_token');
+      url.searchParams.append('error_description', 'Invalid access token');
+    } else {
+      for (let [k, v] of hashParams) {
+        url.searchParams.append(k, v);
+      }
+    }
+    fetch(url, { method: 'POST' })
+      .then((response) => {
+        if (response.redirected) {
+          window.location.replace(response.url);
+        }
+      })
+      .catch(console.error);
+  })();
+</script>
+<body></body>
+</html>
