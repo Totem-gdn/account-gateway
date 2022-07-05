@@ -39,7 +39,6 @@ export class SteamStrategy extends PassportStrategy(Strategy, 'steam') {
     const player = await this.keystoreService.findOneOrCreate({
       id: profile.id,
       provider: profile.provider,
-      username: profile.id, // steam doesn't return email. only id field can be used as unique identifier
     });
     return {
       profile: {

@@ -36,17 +36,15 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
     if (!profile) {
       return null;
     }
-    const userProfile = {
+    const player = await this.keystoreService.findOneOrCreate({
       id: profile.id,
       provider: profile.provider,
-      username: profile.emails?.[0]?.value || profile.username,
-    };
-    const player = await this.keystoreService.findOneOrCreate(userProfile);
+    });
     return {
       profile: {
         id: player.id,
-        provider: userProfile.provider,
-        username: userProfile.username,
+        provider: profile.provider,
+        username: profile.emails?.[0]?.value || profile.username,
       },
       state,
     };

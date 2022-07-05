@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 export interface FindOrCreateRequest {
   id: string;
   provider: string;
-  username: string;
 }
 
 export interface FindOrCreateResponse {

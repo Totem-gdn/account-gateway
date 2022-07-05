@@ -23,17 +23,15 @@ export class ItchIoStrategy extends PassportStrategy(PassportItchioStrategy, 'it
     if (!profile) {
       return null;
     }
-    const userProfile = {
+    const player = await this.keystoreService.findOneOrCreate({
       id: profile.id,
       provider: profile.provider,
-      username: profile.username,
-    };
-    const player = await this.keystoreService.findOneOrCreate(userProfile);
+    });
     return {
       profile: {
         id: player.id,
-        provider: userProfile.provider,
-        username: userProfile.username,
+        provider: profile.provider,
+        username: profile.username,
       },
       state: req.query?.state
         ? JSON.parse(Buffer.from(req.query.state as string, 'base64url').toString('utf8'))

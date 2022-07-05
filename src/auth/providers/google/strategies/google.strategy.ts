@@ -29,17 +29,15 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     if (!profile) {
       return null;
     }
-    const userProfile = {
+    const player = await this.keystoreService.findOneOrCreate({
       id: profile.id,
       provider: profile.provider,
-      username: profile.emails?.[0]?.value || profile.username,
-    };
-    const player = await this.keystoreService.findOneOrCreate(userProfile);
+    });
     return {
       profile: {
         id: player.id,
-        provider: userProfile.provider,
-        username: userProfile.username,
+        provider: profile.provider,
+        username: profile.emails?.[0]?.value || profile.username,
       },
       state: req.query?.state
         ? JSON.parse(Buffer.from(req.query.state as string, 'base64url').toString('utf8'))

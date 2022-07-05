@@ -5,7 +5,6 @@ package users;
 message FindOrCreateRequest {
   string id = 1;
   string provider = 2;
-  string username = 3;
 }
 
 message FindOrCreateResponse {
