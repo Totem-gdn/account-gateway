@@ -1,38 +1,30 @@
 # account-gateway
 Account Gateway for User Login and Obtaining the List of Assets
 
-## Description
+## Auth providers
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Next providers can be used for the authorization:
 
-## Installation
+- `/auth/google`
+- `/auth/facebook`
+- `/auth/twitter`
+- `/auth/steam`
+- `/auth/itch-io`
 
-```bash
-$ npm install
-```
+Providers can be activated separately with `AUTH_PROVIDERS` environment variable
 
-## Running the app
+### Auth request
 
-```bash
-# development
-$ npm run start
+Configurations for the providers can be found in `documentation` directory.
 
-# watch mode
-$ npm run start:dev
+#### Request:
 
-# production mode
-$ npm run start:prod
-```
+Path: `/auth/${provider}`
 
-## Test
+Query params:
 
-```bash
-# unit tests
-$ npm run test
+- _(optional)_ `redirectTo` - the URI to be used for the result redirect callback
 
-# e2e tests
-$ npm run test:e2e
+#### Redirect callback:
 
-# test coverage
-$ npm run test:cov
-```
+Path: `/auth/${provider}/redirect`
